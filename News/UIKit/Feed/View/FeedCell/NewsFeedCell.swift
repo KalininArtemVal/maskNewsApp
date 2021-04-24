@@ -12,6 +12,7 @@ final class NewsFeedCell: UICollectionViewCell {
     static let identifier = "NewsFeedCell"
     
     //MARK: - Properties
+    
     // --- ImageView
     private let titleImage: UIImageView = {
         $0.contentMode = .scaleAspectFill //
