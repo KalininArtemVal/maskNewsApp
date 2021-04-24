@@ -8,14 +8,9 @@
 
 import UIKit
 
-enum Event {
-    case buttonTapped
-}
-
 protocol Coordinator: class {
     var navigationController: UINavigationController? { get set }
     
-    func eventOccurred(with type: Event)
     func startModule()
 }
 

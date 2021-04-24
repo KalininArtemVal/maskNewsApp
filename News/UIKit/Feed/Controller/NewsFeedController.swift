@@ -62,6 +62,14 @@ extension NewsFeedController: UICollectionViewDelegate, UICollectionViewDataSour
         return cell
     }
     
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let article = model[indexPath.row]
+        let vc = NewsDetailController(model: article)
+        
+//        vc.modalPresentationStyle = .overFullScreen
+        present(vc, animated: true)
+    }
+    
 }
 
 //MARK: - CollectionView Delegate

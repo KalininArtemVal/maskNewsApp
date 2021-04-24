@@ -16,26 +16,26 @@ final class NewsDetailView: UIView {
     
     // --- Labels
     private let titleLabel: UILabel = {
+        $0.numberOfLines = 0
+        $0.textAlignment = .center
+        $0.font = UIFont.systemFont(ofSize: 30)
         $0.translatesAutoresizingMaskIntoConstraints = false
         return $0
     }(UILabel())
     
-//    private let descriptionLabel: UILabel = {
-//        $0.translatesAutoresizingMaskIntoConstraints = false
-//        return $0
-//    }(UILabel())
-    
     let descriptionLabel: UITextView = {
-        let view = UITextView()
-        view.translatesAutoresizingMaskIntoConstraints = false
-        view.layer.masksToBounds = true
-        view.font = UIFont.systemFont(ofSize: 15)
-        view.backgroundColor = .white
-        return view
-    }()
+        $0.layer.masksToBounds = true
+        $0.font = UIFont.systemFont(ofSize: 15)
+        $0.autoresizingMask = .flexibleWidth
+        $0.autoresizingMask = .flexibleHeight
+        $0.textContainer.widthTracksTextView = true
+        $0.translatesAutoresizingMaskIntoConstraints = false
+        return $0
+    }(UITextView())
     
     // --- ImageView
     private let titleImage: UIImageView = {
+        $0.backgroundColor = .red
         $0.contentMode = .scaleAspectFill
         $0.clipsToBounds = true
         $0.translatesAutoresizingMaskIntoConstraints = false
@@ -45,7 +45,7 @@ final class NewsDetailView: UIView {
     // --- ScrollView
     private let scrollView: UIScrollView = {
         $0.translatesAutoresizingMaskIntoConstraints = false
-        $0.backgroundColor = .cyan
+        $0.backgroundColor = .white
         return $0
         }(UIScrollView())
     
@@ -65,7 +65,7 @@ final class NewsDetailView: UIView {
         titleLabel.text = title
         descriptionLabel.text = description
         guard let image = image else { return titleImage.backgroundColor = .cyan }
-        let url = URL(string: image)
+        let url = URL(string: image ?? "")
         titleImage.kf.setImage(with: url)
     }
     
@@ -83,11 +83,6 @@ final class NewsDetailView: UIView {
         ])
         
         NSLayoutConstraint.activate([
-            titleLabel.centerXAnchor.constraint(equalTo: scrollView.centerXAnchor),
-            titleLabel.topAnchor.constraint(equalTo: titleImage.bottomAnchor, constant: 20 / 812 * screenHeight)
-        ])
-        
-        NSLayoutConstraint.activate([
             titleImage.leadingAnchor.constraint(equalTo: scrollView.safeAreaLayoutGuide.leadingAnchor),
             titleImage.trailingAnchor.constraint(equalTo: scrollView.safeAreaLayoutGuide.trailingAnchor),
             titleImage.topAnchor.constraint(equalTo: scrollView.safeAreaLayoutGuide.topAnchor),
@@ -95,7 +90,14 @@ final class NewsDetailView: UIView {
         ])
         
         NSLayoutConstraint.activate([
-            descriptionLabel.topAnchor.constraint(equalTo: scrollView.safeAreaLayoutGuide.topAnchor),
+            titleLabel.centerXAnchor.constraint(equalTo: centerXAnchor),
+            titleLabel.topAnchor.constraint(equalTo: titleImage.bottomAnchor, constant: 20 / 812 * screenHeight),
+            titleLabel.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor),
+            titleLabel.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor),
+        ])
+        
+        NSLayoutConstraint.activate([
+            descriptionLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 20 / 812 * screenHeight),
             descriptionLabel.leadingAnchor.constraint(equalTo: scrollView.safeAreaLayoutGuide.leadingAnchor),
             descriptionLabel.trailingAnchor.constraint(equalTo: scrollView.safeAreaLayoutGuide.trailingAnchor),
             descriptionLabel.heightAnchor.constraint(equalToConstant: 200 / 812 * screenHeight),

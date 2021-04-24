@@ -9,9 +9,8 @@ import UIKit
 
 final class NewsFeedCell: UICollectionViewCell {
     
-    static let identifier = "NewsFeedCell"
-    
     //MARK: - Properties
+    static let identifier = "NewsFeedCell"
     
     // --- ImageView
     private let titleImage: UIImageView = {
@@ -29,7 +28,6 @@ final class NewsFeedCell: UICollectionViewCell {
         $0.translatesAutoresizingMaskIntoConstraints = false
         return $0
     }(UIImageView())
-    
     
     // --- ImageView
     private let titleLabel: UILabel = {

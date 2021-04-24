@@ -11,10 +11,6 @@ class MainCoordinator: Coordinator {
     
     var navigationController: UINavigationController?
     
-    func eventOccurred(with type: Event) {
-        
-    }
-    
     func startModule() {
         var vc: UIViewController & Coordinating = NewsFeedController()
         vc.coordinator = self
