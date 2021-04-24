@@ -4,7 +4,6 @@
 //
 //  Created by Калинин Артем Валериевич on 24.04.2021.
 //
-
 import UIKit
 
 final class NewsFeedController: UIViewController, Coordinating {
@@ -28,6 +27,7 @@ final class NewsFeedController: UIViewController, Coordinating {
     
     //MARK: - Methods
     private func setupProperties() {
+        title = "Feed"
         mainView.viewForCollection.delegate = self
         mainView.viewForCollection.dataSource = self
     }
@@ -57,7 +57,8 @@ extension NewsFeedController: UICollectionViewDelegate, UICollectionViewDataSour
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: NewsFeedCell.identifier, for: indexPath) as! NewsFeedCell
         let article = model[indexPath.row]
-        cell.setupProperties(title: article.title)
+        cell.setupProperties(title: article.title, image: article.urlToImage)
+        cell.shadowDecorate()
         return cell
     }
     
@@ -67,7 +68,7 @@ extension NewsFeedController: UICollectionViewDelegate, UICollectionViewDataSour
 extension NewsFeedController: UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let width = UIScreen.main.bounds.width
+        let width = UIScreen.main.bounds.width - 30
         let height = collectionView.frame.size.height / 4
         return CGSize(width: width, height: height)
     }

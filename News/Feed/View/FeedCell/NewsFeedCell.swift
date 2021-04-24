@@ -4,7 +4,7 @@
 //
 //  Created by Калинин Артем Валериевич on 24.04.2021.
 //
-
+import Kingfisher
 import UIKit
 
 final class NewsFeedCell: UICollectionViewCell {
@@ -14,12 +14,17 @@ final class NewsFeedCell: UICollectionViewCell {
     //MARK: - Properties
     // --- ImageView
     private let titleImage: UIImageView = {
+        $0.contentMode = .scaleAspectFill //
         $0.backgroundColor = .cyan
+        $0.layer.cornerRadius = 16
+        $0.clipsToBounds = true
         $0.translatesAutoresizingMaskIntoConstraints = false
         return $0
     }(UIImageView())
     
     private let viewForTitle: UIImageView = {
+        $0.clipsToBounds = true
+        $0.layer.cornerRadius = 16
         $0.translatesAutoresizingMaskIntoConstraints = false
         return $0
     }(UIImageView())
@@ -27,22 +32,25 @@ final class NewsFeedCell: UICollectionViewCell {
     
     // --- ImageView
     private let titleLabel: UILabel = {
-        $0.text = "Title"
+        $0.textColor = .white
+        $0.numberOfLines = 0
         $0.textAlignment = .left
         $0.translatesAutoresizingMaskIntoConstraints = false
         return $0
     }(UILabel())
     
     //MARK: - Methods
-    //setupProperties
-    
-    public func setupProperties(title: String?) {
+    public func setupProperties(title: String?, image: String?) {
         
         titleLabel.text = title ?? ""
         
+        guard let image = image else { return titleImage.backgroundColor = .cyan }
+        let url = URL(string: image)
+        titleImage.kf.setImage(with: url)
+        
         addSubview(titleImage)
         addSubview(viewForTitle)
-        addSubview(titleLabel)
+        viewForTitle.addSubview(titleLabel)
         
         NSLayoutConstraint.activate([
             titleImage.topAnchor.constraint(equalTo: topAnchor),
@@ -52,17 +60,17 @@ final class NewsFeedCell: UICollectionViewCell {
         ])
         
         NSLayoutConstraint.activate([
-            viewForTitle.leadingAnchor.constraint(equalTo: leadingAnchor),
-            viewForTitle.trailingAnchor.constraint(equalTo: trailingAnchor),
-            viewForTitle.bottomAnchor.constraint(equalTo: bottomAnchor),
+            viewForTitle.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor),
+            viewForTitle.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor),
+            viewForTitle.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor),
             viewForTitle.heightAnchor.constraint(equalToConstant: 100)
         ])
         
         NSLayoutConstraint.activate([
-            titleLabel.topAnchor.constraint(equalTo: topAnchor),
-            titleLabel.leadingAnchor.constraint(equalTo: leadingAnchor),
-            titleLabel.trailingAnchor.constraint(equalTo: trailingAnchor),
-            titleLabel.bottomAnchor.constraint(equalTo: bottomAnchor),
+            titleLabel.centerYAnchor.constraint(equalTo: viewForTitle.centerYAnchor),
+            titleLabel.leadingAnchor.constraint(equalTo: viewForTitle.safeAreaLayoutGuide.leadingAnchor),
+            titleLabel.trailingAnchor.constraint(equalTo: viewForTitle.safeAreaLayoutGuide.trailingAnchor),
+            titleLabel.bottomAnchor.constraint(equalTo: viewForTitle.safeAreaLayoutGuide.bottomAnchor),
         ])
     }
     
@@ -71,10 +79,10 @@ final class NewsFeedCell: UICollectionViewCell {
         UIView.animate(withDuration: 2) {
             self.viewForTitle.applyGradientWithStartAndEndPoint(colors: [UIColor.clear, UIColor.black],
                                                                 // --- Left color move to right
-                                                                startTopPoint: CGPoint(x: 0, y: 0),
-                                                                endTopPoint: CGPoint(x: 1, y: 1),
+                                                                startTopPoint: CGPoint(x: 0, y: 1),
+                                                                endTopPoint: CGPoint(x: 0, y: 1),
                                                                 // --- Right color move to left
-                                                                startBottomPoint: CGPoint(x: 0.5, y: 0.5),
+                                                                startBottomPoint: CGPoint(x: 1, y: 0),
                                                                 endBottomPoint: CGPoint(x: 1, y: 1))
         }
     }

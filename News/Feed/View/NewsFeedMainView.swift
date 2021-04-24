@@ -25,7 +25,7 @@ final class NewsFeedMainView: UIView {
         layout.scrollDirection = .vertical
         let collectionView = UICollectionView(frame: CGRect.zero, collectionViewLayout: layout)
         collectionView.register(NewsFeedCell.self, forCellWithReuseIdentifier: NewsFeedCell.identifier)
-        collectionView.backgroundColor = .blue
+        collectionView.backgroundColor = .white
         collectionView.showsHorizontalScrollIndicator = false
         collectionView.showsVerticalScrollIndicator = false
         collectionView.translatesAutoresizingMaskIntoConstraints = false
