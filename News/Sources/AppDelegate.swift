@@ -10,9 +10,23 @@ import UIKit
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
-
+    var window: UIWindow?
+    
+    
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
+        
+        let navVC = UINavigationController()
+        
+        let coordinator = MainCoordinator()
+        coordinator.navigationController = navVC
+        
+        let window = UIWindow(frame: UIScreen.main.bounds)
+        window.rootViewController = navVC
+        window.makeKeyAndVisible()
+        self.window = window
+        
+        coordinator.startModule()
         // Override point for customization after application launch.
         return true
     }
@@ -34,22 +48,22 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 }
 
-extension AppDelegate {
-    private func createFlow() {
-        let appCoordinator = AppCoordinator()
-        window = UIWindow(frame: UIScreen.main.bounds)
-        window?.rootViewController = appCoordinator.startApplication()
-        window?.makeKeyAndVisible()
-        
-        let view = SplashScreenView()
-        view.frame = UIScreen.main.bounds
-        window?.addSubview(view)
-
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
-            view.createAnimation()
-            view.endAnimation = {
-                view.removeFromSuperview()
-            }
-        }
-    }
-}
+//extension AppDelegate {
+//    private func createFlow() {
+//        let appCoordinator = AppCoordinator()
+//        window = UIWindow(frame: UIScreen.main.bounds)
+//        window?.rootViewController = appCoordinator.startApplication()
+//        window?.makeKeyAndVisible()
+//        
+//        let view = SplashScreenView()
+//        view.frame = UIScreen.main.bounds
+//        window?.addSubview(view)
+//
+//        DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
+//            view.createAnimation()
+//            view.endAnimation = {
+//                view.removeFromSuperview()
+//            }
+//        }
+//    }
+//}

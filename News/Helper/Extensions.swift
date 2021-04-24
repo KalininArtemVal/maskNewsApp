@@ -130,4 +130,28 @@ extension UIView {
         ])
     }
     
+    /// Apply Gradient to View (or button, or something else) with COLOR and START/END Point
+    func applyGradientWithStartAndEndPoint(colors: [UIColor], cornerRadius: CGFloat? = nil, isTopToBottom: Bool = false, startTopPoint: CGPoint, endTopPoint: CGPoint, startBottomPoint: CGPoint, endBottomPoint: CGPoint) {
+        if let _ = layer.sublayers?.first as? CAGradientLayer {
+            layer.sublayers?.first?.removeFromSuperlayer()
+        }
+            
+        let gradientLayer = CAGradientLayer()
+        gradientLayer.colors = colors.map { $0.cgColor }
+
+        if isTopToBottom {
+            gradientLayer.startPoint = startTopPoint
+            gradientLayer.endPoint = endTopPoint
+        } else {
+            gradientLayer.startPoint = startBottomPoint
+            gradientLayer.endPoint = endBottomPoint
+        }
+        
+        gradientLayer.frame = self.bounds
+        gradientLayer.cornerRadius = cornerRadius ?? 0
+        self.layer.insertSublayer(gradientLayer, at: 0)
+    }
+    
 }
+
+
