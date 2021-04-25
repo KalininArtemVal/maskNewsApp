@@ -94,10 +94,10 @@ extension NewsFeedController: NewsFeedCellProtocol {
     func tapToSave(cell: NewsFeedCell) {
         print(#function)
         if let indexPath = mainView.viewForCollection.indexPath(for: cell) {
-            print(currentIndex)
             for (index, value) in model.enumerated() {
                 if index == indexPath.row {
                     NewsInfoData.favoriteNewsModel.append(value)
+                    print(NewsInfoData.favoriteNewsModel.count)
                 }
             }
         }
