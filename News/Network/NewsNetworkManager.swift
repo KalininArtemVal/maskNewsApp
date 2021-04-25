@@ -43,7 +43,7 @@ class Network {
     }
     
     private func generateRequest(method: String, body: Data?) -> URLRequest? {
-        guard let url = URL(string: "https://newsapi.org/v2/everything?q=tesla&from=2021-03-24&sortBy=publishedAt&apiKey=\(key)") else {
+        guard let url = URL(string: "https://newsapi.org/v2/everything?q=tesla&from=2021-03-25&sortBy=publishedAt&apiKey=\(key)") else {
             print("It will never heppend")
             return nil }
         

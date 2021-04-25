@@ -107,6 +107,7 @@ extension UIDevice {
 
 }
 
+// MARK: - UIView
 extension UIView {
     
     func stretchFullOn(_ view: UIView) {
@@ -154,6 +155,7 @@ extension UIView {
     
 }
 
+// MARK: - UICollectionViewCell
 extension UICollectionViewCell {
     func shadowDecorate() {
         let radius: CGFloat = 16
@@ -165,7 +167,7 @@ extension UICollectionViewCell {
         layer.shadowColor = UIColor.black.cgColor
         layer.shadowOffset = CGSize(width: 5, height: 1.0)
         layer.shadowRadius = 5.0
-        layer.shadowOpacity = 0.3
+        layer.shadowOpacity = 0.4
         layer.masksToBounds = false
         layer.shadowPath = UIBezierPath(roundedRect: bounds, cornerRadius: radius).cgPath
         layer.cornerRadius = radius

@@ -27,6 +27,7 @@ final class NewsInfoData: NewsInfoDataProtocol {
         let urlToImage: String?
     }
     
-    
     static var model = [Article]()
+    
+    static var favoriteNewsModel = [Article]()
 }

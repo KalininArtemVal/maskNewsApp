@@ -7,13 +7,17 @@
 import Kingfisher
 import UIKit
 
+protocol NewsDetailViewProtocol: class {
+    func tapOnFavorite()
+}
+
 final class NewsDetailView: UIView {
     
     //MARK: - Properties
     
     private let screenHeight = UIScreen.main.bounds.height
     private let screenWidth = UIScreen.main.bounds.width
-    
+    weak var delegate: NewsDetailViewProtocol?
     // --- Labels
     private let titleLabel: UILabel = {
         $0.numberOfLines = 0
@@ -42,16 +46,27 @@ final class NewsDetailView: UIView {
         return $0
     }(UIImageView())
     
+    // --- Button
+    lazy var favoriteButton: UIButton = {
+        let image = UIImage(named: "appTabBarFavoriteIcon")?.withRenderingMode(.alwaysOriginal)
+        $0.setImage(image, for: .normal)
+        $0.addTarget(self, action: #selector(tapOnFavoriteButton), for: .touchUpInside)
+        $0.translatesAutoresizingMaskIntoConstraints = false
+        return $0
+    }(UIButton())
+    
     // --- ScrollView
     private let scrollView: UIScrollView = {
         $0.translatesAutoresizingMaskIntoConstraints = false
         $0.backgroundColor = .white
         return $0
-        }(UIScrollView())
+    }(UIScrollView())
     
     // MARK: - Init
-    override init(frame: CGRect) {
-        super.init(frame: frame)
+    //MARK: - Init
+    init(subscriber: NewsDetailViewProtocol) {
+        super.init(frame: UIScreen.main.bounds)
+        self.delegate = subscriber
         setupConstraints()
     }
     
@@ -65,7 +80,7 @@ final class NewsDetailView: UIView {
         titleLabel.text = title
         descriptionLabel.text = description
         guard let image = image else { return titleImage.backgroundColor = .cyan }
-        let url = URL(string: image ?? "")
+        let url = URL(string: image)
         titleImage.kf.setImage(with: url)
     }
     
@@ -74,12 +89,20 @@ final class NewsDetailView: UIView {
         scrollView.addSubview(titleLabel)
         scrollView.addSubview(titleImage)
         scrollView.addSubview(descriptionLabel)
+        scrollView.addSubview(favoriteButton)
         
         NSLayoutConstraint.activate([
             scrollView.topAnchor.constraint(equalTo: topAnchor),
             scrollView.leadingAnchor.constraint(equalTo: leadingAnchor),
             scrollView.trailingAnchor.constraint(equalTo: trailingAnchor),
             scrollView.bottomAnchor.constraint(equalTo: bottomAnchor),
+        ])
+        
+        NSLayoutConstraint.activate([
+            favoriteButton.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor),
+            favoriteButton.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor),
+            favoriteButton.heightAnchor.constraint(equalToConstant: 30 / 812 * screenHeight),
+            favoriteButton.widthAnchor.constraint(equalToConstant: 30 / 375 * screenWidth),
         ])
         
         NSLayoutConstraint.activate([
@@ -102,8 +125,10 @@ final class NewsDetailView: UIView {
             descriptionLabel.trailingAnchor.constraint(equalTo: scrollView.safeAreaLayoutGuide.trailingAnchor),
             descriptionLabel.heightAnchor.constraint(equalToConstant: 200 / 812 * screenHeight),
         ])
-        
-        
+    }
+    
+    @objc func tapOnFavoriteButton() {
+        delegate?.tapOnFavorite()
     }
     
 }

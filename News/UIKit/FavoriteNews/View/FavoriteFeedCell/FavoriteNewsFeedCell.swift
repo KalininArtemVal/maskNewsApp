@@ -1,24 +1,24 @@
 //
-//  NewsFeedCell.swift
+//  FavoriteNewsFeedCell.swift
 //  News
 //
-//  Created by Калинин Артем Валериевич on 24.04.2021.
+//  Created by Калинин Артем Валериевич on 25.04.2021.
 //
 import Kingfisher
 import UIKit
 
-protocol NewsFeedCellProtocol: class {
-    func tapToSave(cell: NewsFeedCell)
+protocol FavoriteNewsFeedCellProtocol: class {
+    func tapToDelete(cell: FavoriteNewsFeedCell)
 }
 
-final class NewsFeedCell: UICollectionViewCell {
+final class FavoriteNewsFeedCell: UICollectionViewCell {
     
     //MARK: - Properties
-    static let identifier = "NewsFeedCell"
-    weak var delegate: NewsFeedCellProtocol?
-    
     private let screenHeight = UIScreen.main.bounds.height
     private let screenWidth = UIScreen.main.bounds.width
+    
+    static let identifier = "FavoriteNewsFeedCell"
+    weak var delegate: FavoriteNewsFeedCellProtocol?
     
     // --- ImageView
     private let titleImage: UIImageView = {
@@ -47,8 +47,8 @@ final class NewsFeedCell: UICollectionViewCell {
     }(UILabel())
     
     // --- Button
-    lazy var saveButton: UIButton = {
-        let image = UIImage(named: "appTabBarFavoriteIcon")?.withRenderingMode(.alwaysOriginal)
+    lazy var deleteButton: UIButton = {
+        let image = UIImage(named: "favoriteFeedDeleteButton")?.withRenderingMode(.alwaysOriginal)
         $0.setImage(image, for: .normal)
         $0.addTarget(self, action: #selector(tapOnFavoriteButton), for: .touchUpInside)
         $0.translatesAutoresizingMaskIntoConstraints = false
@@ -66,14 +66,14 @@ final class NewsFeedCell: UICollectionViewCell {
         
         addSubview(titleImage)
         addSubview(viewForTitle)
-        addSubview(saveButton)
+        addSubview(deleteButton)
         viewForTitle.addSubview(titleLabel)
         
         NSLayoutConstraint.activate([
-            saveButton.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 10 / 812 * screenHeight),
-            saveButton.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor, constant: -10 / 375 * screenWidth),
-            saveButton.heightAnchor.constraint(equalToConstant: 40 / 812 * screenHeight),
-            saveButton.widthAnchor.constraint(equalToConstant: 40 / 375 * screenWidth),
+            deleteButton.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 10 / 812 * screenHeight),
+            deleteButton.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor, constant: -10 / 375 * screenWidth),
+            deleteButton.heightAnchor.constraint(equalToConstant: 40 / 812 * screenHeight),
+            deleteButton.widthAnchor.constraint(equalToConstant: 40 / 375 * screenWidth),
         ])
         
         NSLayoutConstraint.activate([
@@ -101,18 +101,19 @@ final class NewsFeedCell: UICollectionViewCell {
     // --- Select PhotoButton Button
     override func draw(_ rect: CGRect) {
         UIView.animate(withDuration: 2) {
-            self.viewForTitle.applyGradientWithStartAndEndPoint(colors: [UIColor.clear, UIColor.black],
-                                                                // --- Left color move to right
-                                                                startTopPoint: CGPoint(x: 0, y: 1),
-                                                                endTopPoint: CGPoint(x: 0, y: 1),
-                                                                // --- Right color move to left
-                                                                startBottomPoint: CGPoint(x: 1, y: 0),
-                                                                endBottomPoint: CGPoint(x: 1, y: 1))
+            self.viewForTitle.applyGradientWithStartAndEndPoint(
+                colors: [UIColor.clear, UIColor.black],
+                // --- Left color move to right
+                startTopPoint: CGPoint(x: 0, y: 1),
+                endTopPoint: CGPoint(x: 0, y: 1),
+                // --- Right color move to left
+                startBottomPoint: CGPoint(x: 1, y: 0),
+                endBottomPoint: CGPoint(x: 1, y: 1))
         }
     }
     
     @objc func tapOnFavoriteButton() {
-        delegate?.tapToSave(cell: self)
+        delegate?.tapToDelete(cell: self)
     }
     
 }

@@ -12,7 +12,7 @@ class MainCoordinator: Coordinator {
     var navigationController: UINavigationController?
     
     func startModule() {
-        var vc: UIViewController & Coordinating = NewsFeedController()
+        var vc: UIViewController & Coordinating = AppTabBarController() //() NewsFeedController
         vc.coordinator = self
         
         navigationController?.setViewControllers([vc], animated: false)

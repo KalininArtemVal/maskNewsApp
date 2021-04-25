@@ -11,7 +11,7 @@ final class NewsDetailController: UIViewController {
     
     //MARK: - Properties
     private let model: NewsInfoData.Article
-    private let mainView = NewsDetailView()
+    lazy private var mainView = NewsDetailView(subscriber: self)
     
     //MARK: - Init
     init(model: NewsInfoData.Article) {
@@ -39,4 +39,12 @@ final class NewsDetailController: UIViewController {
         mainView.setupProperties(title: model.title ?? "", description: model.description ?? "", image: model.urlToImage ?? "")
     }
     
+}
+
+extension NewsDetailController: NewsDetailViewProtocol {
+    func tapOnFavorite() {
+        print(#function)
+        NewsInfoData.favoriteNewsModel.append(model)
+        print(NewsInfoData.favoriteNewsModel.count)
+    }
 }
