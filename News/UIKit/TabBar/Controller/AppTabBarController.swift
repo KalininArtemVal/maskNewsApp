@@ -36,9 +36,6 @@ final class AppTabBarController: UITabBarController, Coordinating {
         delegate = self
         tabBar.isHidden = true
         mainView.setConstraints(tabBar: tabBar, view: view)
-        
-        
-        
         viewControllers = [allNews,
                            favoriteNews]
     }

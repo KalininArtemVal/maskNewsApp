@@ -25,6 +25,12 @@ final class NewsFeedController: UIViewController, Coordinating {
         getNews()
     }
     
+    //MARK: - Methods
+    private func setupProperties() {
+        mainView.viewForCollection.delegate = self
+        mainView.viewForCollection.dataSource = self
+    }
+    
     private func getNews() {
         Network.shared.getNews { [weak self] (result) in
             switch result {
@@ -38,14 +44,9 @@ final class NewsFeedController: UIViewController, Coordinating {
             }
         }
     }
-    
-    //MARK: - Methods
-    private func setupProperties() {
-        mainView.viewForCollection.delegate = self
-        mainView.viewForCollection.dataSource = self
-    }
 }
 
+// MARK: - Extensions
 extension NewsFeedController: UICollectionViewDelegate, UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -69,8 +70,6 @@ extension NewsFeedController: UICollectionViewDelegate, UICollectionViewDataSour
     }
     
     @objc func tapOnFavoriteButton() {
-        print(#function)
-        print(currentIndex)
         for (index, value) in model.enumerated() {
             if index == currentIndex {
                 NewsInfoData.favoriteNewsModel.append(value)
@@ -92,11 +91,12 @@ extension NewsFeedController: UICollectionViewDelegateFlowLayout {
 
 extension NewsFeedController: NewsFeedCellProtocol {
     func tapToSave(cell: NewsFeedCell) {
-        print(#function)
         if let indexPath = mainView.viewForCollection.indexPath(for: cell) {
             for (index, value) in model.enumerated() {
                 if index == indexPath.row {
                     NewsInfoData.favoriteNewsModel.append(value)
+                    
+                    CoreDataService.shared.saveData(with: NewsInfoData.favoriteNewsModel)
                     print(NewsInfoData.favoriteNewsModel.count)
                 }
             }

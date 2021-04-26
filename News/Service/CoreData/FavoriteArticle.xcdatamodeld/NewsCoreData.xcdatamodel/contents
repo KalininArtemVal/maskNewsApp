@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="17192" systemVersion="19H2" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
-    <entity name="FavoriteArticle" representedClassName="FavoriteArticle" syncable="YES" codeGenerationType="class">
-        <attribute name="articleDescription" optional="YES" attributeType="String"/>
-        <attribute name="articleTitle" optional="YES" attributeType="String"/>
-        <attribute name="imageUrl" optional="YES" attributeType="String"/>
+    <entity name="FavoriteArticle" representedClassName="FavoriteArticle" syncable="YES">
+        <attribute name="descriptionArticle" optional="YES" attributeType="String"/>
+        <attribute name="title" optional="YES" attributeType="String"/>
+        <attribute name="urlToImage" optional="YES" attributeType="String"/>
     </entity>
     <elements>
         <element name="FavoriteArticle" positionX="-63" positionY="-18" width="128" height="88"/>

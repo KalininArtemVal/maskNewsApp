@@ -101,13 +101,14 @@ final class NewsFeedCell: UICollectionViewCell {
     // --- Select PhotoButton Button
     override func draw(_ rect: CGRect) {
         UIView.animate(withDuration: 2) {
-            self.viewForTitle.applyGradientWithStartAndEndPoint(colors: [UIColor.clear, UIColor.black],
-                                                                // --- Left color move to right
-                                                                startTopPoint: CGPoint(x: 0, y: 1),
-                                                                endTopPoint: CGPoint(x: 0, y: 1),
-                                                                // --- Right color move to left
-                                                                startBottomPoint: CGPoint(x: 1, y: 0),
-                                                                endBottomPoint: CGPoint(x: 1, y: 1))
+            self.viewForTitle.applyGradientWithStartAndEndPoint(
+                colors: [UIColor.clear, UIColor.black],
+                // --- Left color move to right
+                startTopPoint: CGPoint(x: 0, y: 1),
+                endTopPoint: CGPoint(x: 0, y: 1),
+                // --- Right color move to left
+                startBottomPoint: CGPoint(x: 1, y: 0),
+                endBottomPoint: CGPoint(x: 1, y: 1))
         }
     }
     

@@ -87,7 +87,7 @@ final class FavoriteNewsFeedCell: UICollectionViewCell {
             viewForTitle.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor),
             viewForTitle.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor),
             viewForTitle.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor),
-            viewForTitle.heightAnchor.constraint(equalToConstant: 100)
+            viewForTitle.heightAnchor.constraint(equalToConstant: 100 / 812 * screenHeight)
         ])
         
         NSLayoutConstraint.activate([

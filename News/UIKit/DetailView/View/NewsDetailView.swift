@@ -18,6 +18,7 @@ final class NewsDetailView: UIView {
     private let screenHeight = UIScreen.main.bounds.height
     private let screenWidth = UIScreen.main.bounds.width
     weak var delegate: NewsDetailViewProtocol?
+    
     // --- Labels
     private let titleLabel: UILabel = {
         $0.numberOfLines = 0
@@ -27,6 +28,7 @@ final class NewsDetailView: UIView {
         return $0
     }(UILabel())
     
+    // --- TextView
     let descriptionLabel: UITextView = {
         $0.layer.masksToBounds = true
         $0.font = UIFont.systemFont(ofSize: 15)
@@ -62,7 +64,6 @@ final class NewsDetailView: UIView {
         return $0
     }(UIScrollView())
     
-    // MARK: - Init
     //MARK: - Init
     init(subscriber: NewsDetailViewProtocol) {
         super.init(frame: UIScreen.main.bounds)

@@ -17,10 +17,13 @@ final class FavoriteNewsController: UIViewController, Coordinating {
     private let network = Network.shared
     private var currentIndex = 0
     
+    
+    
     //MARK: - Life cycle
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        getCore()
+        CoreDataService.shared.fetchFavoriteArticle()
+        favoriteArticle = CoreDataService.shared.favoriteArticle
         mainView.viewForCollection.reloadData()
     }
     
@@ -32,7 +35,6 @@ final class FavoriteNewsController: UIViewController, Coordinating {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupProperties()
-        saveData(with: NewsInfoData.favoriteNewsModel)
     }
     
     //MARK: - Methods
@@ -41,55 +43,18 @@ final class FavoriteNewsController: UIViewController, Coordinating {
         mainView.viewForCollection.dataSource = self
     }
     
-    private func saveData(with articles: [NewsInfoData.Article]) {
-        let appDelegate = UIApplication.shared.delegate as! AppDelegate
-        let context = appDelegate.persistentContainer.viewContext
-        guard let entity = NSEntityDescription.entity(forEntityName: "FavoriteArticle", in: context) else { return }
-        
-        let favoriteArticleObject = FavoriteArticle(entity: entity, insertInto: context)
-        
-        articles.enumerated().forEach { (index, article) in
-            favoriteArticleObject.articleTitle = article.title
-            favoriteArticleObject.articleDescription = article.description
-            favoriteArticleObject.imageUrl = article.urlToImage
-        }
-        
-        do {
-            try context.save()
-        } catch let error as NSError {
-            print(error.localizedDescription)
-        }
-    }
-    
-    private func getCore() {
-        let appDelegate = UIApplication.shared.delegate as! AppDelegate
-        let context = appDelegate.persistentContainer.viewContext
-        
-        let fetchRequest: NSFetchRequest<FavoriteArticle> = FavoriteArticle.fetchRequest()
-        
-        do {
-            favoriteArticle = try context.fetch(fetchRequest)
-        } catch let error as NSError {
-            print(error.localizedDescription)
-        }
-    }
-    
 }
 
 extension FavoriteNewsController: UICollectionViewDelegate, UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return favoriteArticle.count
-//        return NewsInfoData.favoriteNewsModel.count
+        return CoreDataService.shared.favoriteArticle.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: FavoriteNewsFeedCell.identifier, for: indexPath) as! FavoriteNewsFeedCell
-        
-//        let article = NewsInfoData.favoriteNewsModel[indexPath.row]
-        let article = favoriteArticle[indexPath.row]
-        
-        cell.setupProperties(title: article.articleTitle, image: article.imageUrl)
+        let article = CoreDataService.shared.favoriteArticle[indexPath.row]
+        cell.setupProperties(title: article.title, image: article.urlToImage)
         cell.shadowDecorate()
         cell.delegate = self
         return cell
@@ -97,12 +62,13 @@ extension FavoriteNewsController: UICollectionViewDelegate, UICollectionViewData
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         // TODO: - create normal coordinator!
-//        let article = NewsInfoData.favoriteNewsModel[indexPath.row]
-//        let vc = NewsDetailController(model: article)
-//        present(vc, animated: true)
+        let article = CoreDataService.shared.favoriteArticle[indexPath.row]
+        let newArticle = NewsInfoData.Article(title: article.title,
+                                              description: article.descriptionArticle,
+                                              urlToImage: article.urlToImage)
+        let vc = NewsDetailController(model: newArticle)
+        present(vc, animated: true)
     }
-    
-    
     
 }
 
@@ -121,13 +87,18 @@ extension FavoriteNewsController: FavoriteNewsFeedCellProtocol {
         print(#function)
         if let indexPath = mainView.viewForCollection.indexPath(for: cell) {
             
-            for (index, value) in favoriteArticle.enumerated() { //NewsInfoData.favoriteNewsModel
+            for (index, value) in CoreDataService.shared.favoriteArticle.enumerated() {
                 if index == indexPath.row {
-                    favoriteArticle.remove(at: index)
+                    CoreDataService.shared.context.delete(value)
+                    do {
+                        try CoreDataService.shared.context.save()
+                    } catch let error as NSError {
+                        print(error.localizedDescription)
+                    }
+                    CoreDataService.shared.favoriteArticle.remove(at: index)
                     mainView.viewForCollection.deleteItems(at: [indexPath])
                 }
             }
         }
-        
     }
 }

@@ -11,12 +11,6 @@ protocol NewsInfoDataProtocol {
 
 final class NewsInfoData: NewsInfoDataProtocol {
     
-    struct NewsInfoStruct {
-        let title: String
-        let image: String?
-        let description: String?
-    }
-    
     struct Articles: Codable {
         let articles: [Article]
     }
