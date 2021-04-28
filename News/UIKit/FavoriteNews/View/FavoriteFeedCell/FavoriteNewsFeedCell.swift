@@ -59,7 +59,6 @@ final class FavoriteNewsFeedCell: UICollectionViewCell {
     public func setupProperties(title: String?, image: String?) {
         
         titleLabel.text = title ?? ""
-        
         guard let image = image else { return titleImage.backgroundColor = .cyan }
         let url = URL(string: image)
         titleImage.kf.setImage(with: url)

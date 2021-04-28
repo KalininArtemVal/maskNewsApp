@@ -7,12 +7,14 @@
 import UIKit
 
 final class NewsFeedController: UIViewController, Coordinating {
+    
     var coordinator: Coordinator?
     
     //MARK: - Properties
     public let mainView = NewsFeedMainView()
     private var model = NewsInfoData.model
     private var currentIndex = 0
+    private let session = Network.shared.session
     
     //MARK: - Life cycle
     override func loadView() {
@@ -32,18 +34,18 @@ final class NewsFeedController: UIViewController, Coordinating {
     }
     
     private func getNews() {
-        Network.shared.getNews { [weak self] (result) in
-            switch result {
-            case.success(let article):
-                self?.model = article.articles
-                DispatchQueue.main.async {
-                    self?.mainView.viewForCollection.reloadData()
-                }
-            case .failure( let error):
-                print(error)
+        Network.shared.getNews { [weak self] news, error in
+            if let error = error {
+                print("error", error)
+                return
+            }
+            self?.model = news?.articles ?? []
+            DispatchQueue.main.async {
+                self?.mainView.viewForCollection.reloadData()
             }
         }
     }
+    
 }
 
 // MARK: - Extensions
@@ -57,7 +59,8 @@ extension NewsFeedController: UICollectionViewDelegate, UICollectionViewDataSour
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: NewsFeedCell.identifier, for: indexPath) as! NewsFeedCell
         cell.shadowDecorate()
         let article = model[indexPath.row]
-        cell.setupProperties(title: article.title, image: article.urlToImage)
+        let articleImage = URL(string: article.urlToImage ?? "")
+        cell.setupProperties(title: article.title, url: articleImage , session: session)
         cell.delegate = self
         return cell
     }
@@ -67,14 +70,6 @@ extension NewsFeedController: UICollectionViewDelegate, UICollectionViewDataSour
         let article = model[indexPath.row]
         let vc = NewsDetailController(model: article)
         present(vc, animated: true)
-    }
-    
-    @objc func tapOnFavoriteButton() {
-        for (index, value) in model.enumerated() {
-            if index == currentIndex {
-                NewsInfoData.favoriteNewsModel.append(value)
-            }
-        }
     }
     
 }
@@ -95,9 +90,7 @@ extension NewsFeedController: NewsFeedCellProtocol {
             for (index, value) in model.enumerated() {
                 if index == indexPath.row {
                     NewsInfoData.favoriteNewsModel.append(value)
-                    
                     CoreDataService.shared.saveData(with: NewsInfoData.favoriteNewsModel)
-                    print(NewsInfoData.favoriteNewsModel.count)
                 }
             }
         }

@@ -11,7 +11,9 @@ final class NewsDetailController: UIViewController {
     
     //MARK: - Properties
     private let model: NewsInfoData.Article
+    private let session = Network.shared.session
     lazy private var mainView = NewsDetailView(subscriber: self)
+    
     
     //MARK: - Init
     init(model: NewsInfoData.Article) {
@@ -36,15 +38,14 @@ final class NewsDetailController: UIViewController {
     
     //MARK: - Methods
     private func setupProperties() {
-        mainView.setupProperties(title: model.title ?? "", description: model.description ?? "", image: model.urlToImage ?? "")
+        let urlImage = URL(string: model.urlToImage ?? "")
+        mainView.setupProperties(title: model.title, description: model.description, url: urlImage, session: session)
     }
     
 }
 
 extension NewsDetailController: NewsDetailViewProtocol {
     func tapOnFavorite() {
-        print(#function)
         NewsInfoData.favoriteNewsModel.append(model)
-        print(NewsInfoData.favoriteNewsModel.count)
     }
 }

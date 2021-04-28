@@ -173,3 +173,14 @@ extension UICollectionViewCell {
         layer.cornerRadius = radius
     }
 }
+
+// MARK: - UIImage
+extension UIImage {
+    func resizedImage(with size: CGSize) -> UIImage? {
+        UIGraphicsBeginImageContextWithOptions(size, false, 0.0)
+        draw(in: CGRect(origin: .zero, size: size))
+        let resizeImage = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+        return resizeImage
+    }
+}

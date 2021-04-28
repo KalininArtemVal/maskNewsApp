@@ -4,7 +4,7 @@
 //
 //  Created by Калинин Артем Валериевич on 24.04.2021.
 //
-import Kingfisher
+//import Kingfisher
 import UIKit
 
 protocol NewsFeedCellProtocol: class {
@@ -14,6 +14,8 @@ protocol NewsFeedCellProtocol: class {
 final class NewsFeedCell: UICollectionViewCell {
     
     //MARK: - Properties
+    private var dataTask: URLSessionDataTask?
+    
     static let identifier = "NewsFeedCell"
     weak var delegate: NewsFeedCellProtocol?
     
@@ -22,7 +24,7 @@ final class NewsFeedCell: UICollectionViewCell {
     
     // --- ImageView
     private let titleImage: UIImageView = {
-        $0.contentMode = .scaleAspectFill //
+        $0.contentMode = .scaleAspectFill
         $0.backgroundColor = .cyan
         $0.layer.cornerRadius = 16
         $0.clipsToBounds = true
@@ -48,7 +50,8 @@ final class NewsFeedCell: UICollectionViewCell {
     
     // --- Button
     lazy var saveButton: UIButton = {
-        let image = UIImage(named: "appTabBarFavoriteIcon")?.withRenderingMode(.alwaysOriginal)
+        let image = UIImage(named: "appTabBarFavoriteIcon")?.withRenderingMode(.alwaysTemplate)
+        $0.tintColor = UIColor.red
         $0.setImage(image, for: .normal)
         $0.addTarget(self, action: #selector(tapOnFavoriteButton), for: .touchUpInside)
         $0.translatesAutoresizingMaskIntoConstraints = false
@@ -56,14 +59,26 @@ final class NewsFeedCell: UICollectionViewCell {
     }(UIButton())
     
     //MARK: - Methods
-    public func setupProperties(title: String?, image: String?) {
+    public func setupProperties(title: String?, url: URL?, session: URLSession) {
         
-        titleLabel.text = title ?? ""
-        
-        guard let image = image else { return titleImage.backgroundColor = .cyan }
-        let url = URL(string: image)
-        titleImage.kf.setImage(with: url)
-        
+        titleLabel.text = title
+        if let url = url {
+            let dataTask = session.dataTask(with: url) { [weak self] (data, _, _) in
+                guard let data = data else {
+                    return
+                }
+                let widthSize = Int(UIScreen.main.bounds.width)
+                let heightSize = Int(UIScreen.main.bounds.height / 4)
+                //Resize images
+                let image = UIImage(data: data)?.resizedImage(with: CGSize(width: widthSize, height: heightSize))
+                DispatchQueue.main.async { [weak self] in
+                    self?.titleImage.image = image
+                    self?.titleImage.contentMode = .scaleAspectFill
+                }
+            }
+            dataTask.resume()
+            self.dataTask = dataTask
+        }
         addSubview(titleImage)
         addSubview(viewForTitle)
         addSubview(saveButton)
@@ -96,6 +111,13 @@ final class NewsFeedCell: UICollectionViewCell {
             titleLabel.trailingAnchor.constraint(equalTo: viewForTitle.safeAreaLayoutGuide.trailingAnchor),
             titleLabel.bottomAnchor.constraint(equalTo: viewForTitle.safeAreaLayoutGuide.bottomAnchor),
         ])
+    }
+    
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        dataTask?.cancel()
+        dataTask = nil
+        self.titleImage.image = nil
     }
     
     // --- Select PhotoButton Button

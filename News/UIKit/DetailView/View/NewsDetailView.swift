@@ -14,7 +14,7 @@ protocol NewsDetailViewProtocol: class {
 final class NewsDetailView: UIView {
     
     //MARK: - Properties
-    
+    private var dataTask: URLSessionDataTask?
     private let screenHeight = UIScreen.main.bounds.height
     private let screenWidth = UIScreen.main.bounds.width
     weak var delegate: NewsDetailViewProtocol?
@@ -41,7 +41,6 @@ final class NewsDetailView: UIView {
     
     // --- ImageView
     private let titleImage: UIImageView = {
-        $0.backgroundColor = .red
         $0.contentMode = .scaleAspectFill
         $0.clipsToBounds = true
         $0.translatesAutoresizingMaskIntoConstraints = false
@@ -77,12 +76,29 @@ final class NewsDetailView: UIView {
     
     //MARK: - Methods
     
-    public func setupProperties(title: String?, description: String?, image: String?) {
+    public func setupProperties(title: String?, description: String?, url: URL?, session: URLSession) {
         titleLabel.text = title
         descriptionLabel.text = description
-        guard let image = image else { return titleImage.backgroundColor = .cyan }
-        let url = URL(string: image)
-        titleImage.kf.setImage(with: url)
+        
+        if let url = url {
+            let dataTask = session.dataTask(with: url) { [weak self] (data, _, _) in
+                guard let data = data else {
+                    return
+                }
+                let widthSize = Int(UIScreen.main.bounds.width)
+                let heightSize = Int(UIScreen.main.bounds.height / 4)
+                //Resize images
+                let image = UIImage(data: data)?.resizedImage(with: CGSize(width: widthSize, height: heightSize))
+                DispatchQueue.main.async { [weak self] in
+                    self?.titleImage.image = image
+                    self?.titleImage.contentMode = .scaleAspectFill
+                }
+            }
+            
+            dataTask.resume()
+            self.dataTask = dataTask
+        }
+        
     }
     
     private func setupConstraints() {
