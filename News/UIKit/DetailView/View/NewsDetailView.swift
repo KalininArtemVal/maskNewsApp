@@ -4,7 +4,6 @@
 //
 //  Created by Калинин Артем Валериевич on 24.04.2021.
 //
-import Kingfisher
 import UIKit
 
 protocol NewsDetailViewProtocol: class {

@@ -15,9 +15,8 @@ final class FavoriteNewsController: UIViewController, Coordinating {
     private let mainView = FavoriteNewsFeedMainView()
     private var favoriteArticle = [FavoriteArticle]()
     private let network = Network.shared
+    private let session = Network.shared.session
     private var currentIndex = 0
-    
-    
     
     //MARK: - Life cycle
     override func viewWillAppear(_ animated: Bool) {
@@ -54,7 +53,8 @@ extension FavoriteNewsController: UICollectionViewDelegate, UICollectionViewData
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: FavoriteNewsFeedCell.identifier, for: indexPath) as! FavoriteNewsFeedCell
         let article = CoreDataService.shared.favoriteArticle[indexPath.row]
-        cell.setupProperties(title: article.title, image: article.urlToImage)
+        let articleImage = URL(string: article.urlToImage ?? "")
+        cell.setupProperties(title: article.title, url: articleImage , session: session)
         cell.shadowDecorate()
         cell.delegate = self
         return cell
@@ -83,6 +83,7 @@ extension FavoriteNewsController: UICollectionViewDelegateFlowLayout {
 }
 
 extension FavoriteNewsController: FavoriteNewsFeedCellProtocol {
+    
     func tapToDelete(cell: FavoriteNewsFeedCell) {
         print(#function)
         if let indexPath = mainView.viewForCollection.indexPath(for: cell) {

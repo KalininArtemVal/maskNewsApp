@@ -4,7 +4,6 @@
 //
 //  Created by Калинин Артем Валериевич on 25.04.2021.
 //
-import Kingfisher
 import UIKit
 
 protocol FavoriteNewsFeedCellProtocol: class {
@@ -14,6 +13,8 @@ protocol FavoriteNewsFeedCellProtocol: class {
 final class FavoriteNewsFeedCell: UICollectionViewCell {
     
     //MARK: - Properties
+    private var dataTask: URLSessionDataTask?
+    
     private let screenHeight = UIScreen.main.bounds.height
     private let screenWidth = UIScreen.main.bounds.width
     
@@ -56,12 +57,31 @@ final class FavoriteNewsFeedCell: UICollectionViewCell {
     }(UIButton())
     
     //MARK: - Methods
-    public func setupProperties(title: String?, image: String?) {
+    public func setupProperties(title: String?, url: URL?, session: URLSession) {
         
-        titleLabel.text = title ?? ""
-        guard let image = image else { return titleImage.backgroundColor = .cyan }
-        let url = URL(string: image)
-        titleImage.kf.setImage(with: url)
+        titleLabel.text = title
+        if let url = url {
+            let dataTask = session.dataTask(with: url) { [weak self] (data, _, _) in
+                guard let data = data else {
+                    return
+                }
+                let widthSize = Int(UIScreen.main.bounds.width)
+                let heightSize = Int(UIScreen.main.bounds.height / 4)
+                //Resize images
+                let image = UIImage(data: data)?.resizedImage(with: CGSize(width: widthSize, height: heightSize))
+                DispatchQueue.main.async { [weak self] in
+                    self?.titleImage.image = image
+                    self?.titleImage.contentMode = .scaleAspectFill
+                }
+            }
+            dataTask.resume()
+            self.dataTask = dataTask
+        }
+        
+//        titleLabel.text = title ?? ""
+//        guard let image = image else { return titleImage.backgroundColor = .cyan }
+//        let url = URL(string: image)
+//        titleImage.kf.setImage(with: url)
         
         addSubview(titleImage)
         addSubview(viewForTitle)
