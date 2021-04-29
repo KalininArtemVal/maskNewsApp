@@ -48,7 +48,8 @@ final class NewsDetailView: UIView {
     
     // --- Button
     lazy var favoriteButton: UIButton = {
-        let image = UIImage(named: "appTabBarFavoriteIcon")?.withRenderingMode(.alwaysOriginal)
+        let image = UIImage(named: "appTabBarFavoriteIcon")?.withRenderingMode(.alwaysTemplate)
+        $0.tintColor = UIColor.systemPink
         $0.setImage(image, for: .normal)
         $0.addTarget(self, action: #selector(tapOnFavoriteButton), for: .touchUpInside)
         $0.translatesAutoresizingMaskIntoConstraints = false

@@ -30,8 +30,8 @@ class CustomTabBarController: UITabBarController {
     private func setupPropertiesForTabBar() {
         let newsFeedImage = UIImage(named: "appTabBarMenuIcon")?.resizedImage(with: CGSize(width: 23, height: 23))
         let favoriteNwsFeedImage = UIImage(named: "appTabBarFavoriteIcon")?.resizedImage(with: CGSize(width: 23, height: 23))
-        let item1 = UITabBarItem(title: nil, image: newsFeedImage, tag: 0)
-        let item2 = UITabBarItem(title: nil, image: favoriteNwsFeedImage, tag: 1)
+        let item1 = UITabBarItem(title: "Feed", image: newsFeedImage, tag: 0)
+        let item2 = UITabBarItem(title: "Favorite", image: favoriteNwsFeedImage, tag: 1)
 
         newsFeedController.tabBarItem = item1
         favoriteNewsFeedController.tabBarItem = item2

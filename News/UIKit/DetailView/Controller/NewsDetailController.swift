@@ -10,7 +10,6 @@ import UIKit
 final class NewsDetailController: UIViewController {
     
     //MARK: - Properties
-//    private let coordinator: AllTemplatesCoordinatorProtocol
     private let model: NewsInfoData.Article
     private let session = Network.shared.session
     lazy private var mainView = NewsDetailView(subscriber: self)
@@ -47,6 +46,8 @@ final class NewsDetailController: UIViewController {
 
 extension NewsDetailController: NewsDetailViewProtocol {
     func tapOnFavorite() {
+        print(#function)
         NewsInfoData.favoriteNewsModel.append(model)
+        CoreDataService.shared.saveData(with: NewsInfoData.favoriteNewsModel)
     }
 }

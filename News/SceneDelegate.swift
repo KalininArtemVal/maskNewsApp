@@ -14,10 +14,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
         if let windowScene = scene as? UIWindowScene {
             let window = UIWindow(windowScene: windowScene)
-            let navController = UINavigationController()
             let viewController = CustomTabBarController()
-//            navController.viewControllers = [viewController]
-            window.rootViewController =  viewController//navController
+            window.rootViewController =  viewController
             self.window = window
             window.makeKeyAndVisible()
         }
@@ -28,7 +26,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 //        let coordinator = AllTemplatesCoordinator(navigationController: navVC)
 //        coordinator.navigationController = navVC
 //        let window = UIWindow(windowScene: windowSceen)
-//        window.rootViewController = navVC
+//        let viewController = CustomTabBarController()
+//        window.rootViewController = viewController//navVC
 //        window.makeKeyAndVisible()
 //        self.window = window
 //

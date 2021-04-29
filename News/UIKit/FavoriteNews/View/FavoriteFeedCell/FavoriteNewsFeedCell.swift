@@ -41,7 +41,7 @@ final class FavoriteNewsFeedCell: UICollectionViewCell {
     // --- ImageView
     private let titleLabel: UILabel = {
         $0.textColor = .white
-        $0.numberOfLines = 0
+        $0.numberOfLines = 2
         $0.textAlignment = .left
         $0.translatesAutoresizingMaskIntoConstraints = false
         return $0
