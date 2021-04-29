@@ -10,19 +10,18 @@ import UIKit
 final class NewsDetailController: UIViewController {
     
     //MARK: - Properties
-    private let coordinator: AllTemplatesCoordinatorProtocol
+//    private let coordinator: AllTemplatesCoordinatorProtocol
     private let model: NewsInfoData.Article
     private let session = Network.shared.session
     lazy private var mainView = NewsDetailView(subscriber: self)
     
     
     //MARK: - Init
-    init(coordinator: AllTemplatesCoordinatorProtocol, model: NewsInfoData.Article) {
-        self.coordinator = coordinator
+    init(model: NewsInfoData.Article) {
         self.model = model
         super.init(nibName: nil, bundle: nil)
     }
-    
+
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }

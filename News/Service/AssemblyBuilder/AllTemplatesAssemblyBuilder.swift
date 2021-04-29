@@ -9,13 +9,13 @@ import UIKit
 
 protocol AllTemplatesAssemblyBuilderProtocol {
     
-    func createDetailViewController(coordinator: AllTemplatesCoordinatorProtocol, model: NewsInfoData.Article) -> UIViewController
+    func createDetailViewController(model: NewsInfoData.Article) -> UIViewController
 }
 
 final class AllTemplatesAssemblyBuilder: AllTemplatesAssemblyBuilderProtocol {
     
-    func createDetailViewController(coordinator: AllTemplatesCoordinatorProtocol, model: NewsInfoData.Article) -> UIViewController {
-        let controller = NewsDetailController(coordinator: coordinator, model: model)
+    func createDetailViewController(model: NewsInfoData.Article) -> UIViewController {
+        let controller = NewsDetailController(model: model)
         return controller
     }
     

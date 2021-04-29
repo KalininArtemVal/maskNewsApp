@@ -7,15 +7,15 @@
 
 import UIKit
 
-class MainCoordinator: Coordinator {
-    
-    var navigationController: UINavigationController?
-    
-    func startModule() {
-        var vc: UIViewController & Coordinating = AppTabBarController()
-        vc.coordinator = self
-        
-        navigationController?.setViewControllers([vc], animated: false)
-    }
-}
+//class MainCoordinator: Coordinator {
+//    
+//    var navigationController: UINavigationController?
+//    
+//    func startModule() {
+//        var vc: UIViewController & Coordinating = AppTabBarController()
+//        vc.coordinator = self
+//        
+//        navigationController?.setViewControllers([vc], animated: false)
+//    }
+//}
 

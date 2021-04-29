@@ -7,8 +7,6 @@
 import UIKit
 
 final class NewsFeedController: UIViewController, Coordinating {
-    
-    
     var coordinator: Coordinator?
     
     //MARK: - Properties
@@ -18,13 +16,15 @@ final class NewsFeedController: UIViewController, Coordinating {
     private var currentIndex = 0
     private let session = Network.shared.session
     
+    private let searchController = UISearchController(searchResultsController: nil)
+    
     private var isSearchBarEmpty: Bool {
-        return mainView.searchController.searchBar.text?.isEmpty ?? true
+        return searchController.searchBar.text?.isEmpty ?? true
     }
     private var isFiltering: Bool {
-        return mainView.searchController.isActive && !isSearchBarEmpty
+        return searchController.isActive && !isSearchBarEmpty
     }
-    
+   
     //MARK: - Life cycle
     override func loadView() {
         view = mainView
@@ -34,28 +34,14 @@ final class NewsFeedController: UIViewController, Coordinating {
         super.viewDidLoad()
         setupProperties()
         getNews()
-        setupSearchController()
+        title = "Feed"
+        setSearchController()
     }
     
     //MARK: - Methods
     private func setupProperties() {
         mainView.viewForCollection.delegate = self
         mainView.viewForCollection.dataSource = self
-    }
-    
-    private func setupSearchController() {
-        mainView.searchController.searchResultsUpdater = self
-        coordinator?.navigationController?.navigationItem.searchController = mainView.searchController
-        definesPresentationContext = true
-    }
-    
-    private func filterContentForSearchText(_ searchText: String, category: NewsInfoData.Article? = nil) {
-        filteredModel = model.filter { (article: NewsInfoData.Article) -> Bool in
-            return (article.title?.lowercased().contains(searchText.lowercased()))!
-        }
-        
-//        view.addSubview(detailView)
-        mainView.viewForCollection.reloadData()
     }
     
     private func getNews() {
@@ -71,32 +57,64 @@ final class NewsFeedController: UIViewController, Coordinating {
         }
     }
     
+    private func setSearchController() {
+        searchController.searchResultsUpdater = self
+        searchController.obscuresBackgroundDuringPresentation = false
+        searchController.searchBar.placeholder = "Поиск..."
+        navigationItem.searchController = searchController
+        definesPresentationContext = true
+    }
+    
+    private func filterContentForSearchText(_ searchText: String, category: NewsInfoData.Article? = nil) {
+        filteredModel = model.filter { (article: NewsInfoData.Article) -> Bool in
+            return article.title?.lowercased().contains(searchText.lowercased()) ?? false ||              article.description?.lowercased().contains(searchText.lowercased()) ?? false
+        }
+        mainView.viewForCollection.reloadData()
+    }
+    
 }
 
 // MARK: - Extensions
 extension NewsFeedController: UICollectionViewDelegate, UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        if isFiltering {
+            return filteredModel.count
+        }
         return model.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: NewsFeedCell.identifier, for: indexPath) as! NewsFeedCell
+        
+        let searchingCity: NewsInfoData.Article
+        if isFiltering {
+            searchingCity = filteredModel[indexPath.row]
+            let articleImage = URL(string: searchingCity.urlToImage ?? "")
+            cell.setupProperties(title: searchingCity.title, url: articleImage , session: session)
+            cell.delegate = self
+        } else {
+            let article = model[indexPath.row]
+            let articleImage = URL(string: article.urlToImage ?? "")
+            cell.setupProperties(title: article.title, url: articleImage , session: session)
+            cell.delegate = self
+        }
         cell.shadowDecorate()
-        let article = model[indexPath.row]
-        let articleImage = URL(string: article.urlToImage ?? "")
-        cell.setupProperties(title: article.title, url: articleImage , session: session)
-        cell.delegate = self
         return cell
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         // TODO: - create normal coordinator!
-        let article = model[indexPath.row]
-//        let vc = NewsDetailController(coordinator: self, model: article)
-//        present(vc, animated: true)
+        if isFiltering {
+            let article = filteredModel[indexPath.row]
+            let vc = NewsDetailController(model: article)
+            navigationController?.pushViewController(vc, animated: true)
+        } else {
+            let article = model[indexPath.row]
+            let vc = NewsDetailController(model: article)
+            navigationController?.pushViewController(vc, animated: true)
+        }
     }
-    
 }
 
 //MARK: - CollectionView Delegate
@@ -120,7 +138,6 @@ extension NewsFeedController: NewsFeedCellProtocol {
             }
         }
     }
-    
 }
 
 extension NewsFeedController: UISearchResultsUpdating {

@@ -34,6 +34,7 @@ final class FavoriteNewsController: UIViewController, Coordinating {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupProperties()
+        title = "Favorite"
     }
     
     //MARK: - Methods
@@ -66,8 +67,8 @@ extension FavoriteNewsController: UICollectionViewDelegate, UICollectionViewData
         let newArticle = NewsInfoData.Article(title: article.title,
                                               description: article.descriptionArticle,
                                               urlToImage: article.urlToImage)
-//        let vc = NewsDetailController(coordinator: <#AllTemplatesCoordinatorProtocol#>, model: newArticle)
-//        present(vc, animated: true)
+        let vc = NewsDetailController(model: newArticle)
+        navigationController?.present(vc, animated: true)
     }
     
 }

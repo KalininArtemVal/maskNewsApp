@@ -16,7 +16,7 @@ class Network {
     
     // MARK: - Properties
     private let key = "1b4e4c9c466e4b95a15dbf2269b71298"
-    private let path = "https://newsapi.org/v2/everything?q=tesla&from=2021-03-28&sortBy=publishedAt&apiKey="
+//    private let path = "https://newsapi.org/v2/everything?q=tesla&from=2021-03-28&sortBy=publishedAt&apiKey="
     private var articles = NSCache<NSString, NSData>()
     
     public let session: URLSession = {
@@ -36,7 +36,7 @@ class Network {
     
     //MARK: - Methods
     private func generateRequest(method: String, body: Data?) -> URLRequest? {
-        guard let url = URL(string: "https://newsapi.org/v2/everything?q=tesla&from=2021-03-28&sortBy=publishedAt&apiKey=\(key)") else {
+        guard let url = URL(string: "https://newsapi.org/v2/everything?q=tesla&from=2021-03-29&sortBy=publishedAt&apiKey=\(key)") else {
             print("It will never heppend")
             return nil }
         var request = URLRequest(url: url, cachePolicy: URLRequest.CachePolicy.returnCacheDataElseLoad, timeoutInterval: 10)

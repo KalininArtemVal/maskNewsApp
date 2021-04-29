@@ -11,20 +11,29 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     var window: UIWindow?
 
-
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
-        guard let windowSceen = (scene as? UIWindowScene) else { return }
-        let navVC = UINavigationController()
-        let coordinator = MainCoordinator()
-        coordinator.navigationController = navVC
+        if let windowScene = scene as? UIWindowScene {
+            let window = UIWindow(windowScene: windowScene)
+            let navController = UINavigationController()
+            let viewController = CustomTabBarController()
+//            navController.viewControllers = [viewController]
+            window.rootViewController =  viewController//navController
+            self.window = window
+            window.makeKeyAndVisible()
+        }
         
-        let window = UIWindow(windowScene: windowSceen)
-        window.rootViewController = navVC
-        window.makeKeyAndVisible()
-        self.window = window
-        
-        coordinator.startModule()
-        
+//        guard let windowSceen = (scene as? UIWindowScene) else { return }
+//        let navVC = UINavigationController()
+//
+//        let coordinator = AllTemplatesCoordinator(navigationController: navVC)
+//        coordinator.navigationController = navVC
+//        let window = UIWindow(windowScene: windowSceen)
+//        window.rootViewController = navVC
+//        window.makeKeyAndVisible()
+//        self.window = window
+//
+//        coordinator.startModule()
+
     }
 
     func sceneDidDisconnect(_ scene: UIScene) {

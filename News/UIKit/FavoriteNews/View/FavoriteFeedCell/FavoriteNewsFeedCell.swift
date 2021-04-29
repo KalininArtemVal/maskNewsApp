@@ -49,7 +49,8 @@ final class FavoriteNewsFeedCell: UICollectionViewCell {
     
     // --- Button
     lazy var deleteButton: UIButton = {
-        let image = UIImage(named: "favoriteFeedDeleteButton")?.withRenderingMode(.alwaysOriginal)
+        let image = UIImage(named: "favoriteFeedDeleteButton")?.withRenderingMode(.alwaysTemplate)
+        $0.tintColor = UIColor.systemPink
         $0.setImage(image, for: .normal)
         $0.addTarget(self, action: #selector(tapOnFavoriteButton), for: .touchUpInside)
         $0.translatesAutoresizingMaskIntoConstraints = false
@@ -77,11 +78,6 @@ final class FavoriteNewsFeedCell: UICollectionViewCell {
             dataTask.resume()
             self.dataTask = dataTask
         }
-        
-//        titleLabel.text = title ?? ""
-//        guard let image = image else { return titleImage.backgroundColor = .cyan }
-//        let url = URL(string: image)
-//        titleImage.kf.setImage(with: url)
         
         addSubview(titleImage)
         addSubview(viewForTitle)

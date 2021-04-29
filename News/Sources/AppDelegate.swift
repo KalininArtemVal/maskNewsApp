@@ -13,21 +13,28 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
+        window = UIWindow(frame: UIScreen.main.bounds)
+        window?.makeKeyAndVisible()
+//        window?.rootViewController = CustomTabBarController()
+
         
-        let navVC = UINavigationController()
-         
-        let coordinator = AllTemplatesCoordinator(navigationController: navVC) // MainCoordinator
-        coordinator.navigationController = navVC
-        
-        let window = UIWindow(frame: UIScreen.main.bounds)
-        window.rootViewController = navVC
-        window.makeKeyAndVisible()
-        self.window = window
-        
-        coordinator.startModule()
-        // Override point for customization after application launch.
         return true
     }
+//    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
+//
+//        let navVC = UINavigationController()
+//        let coordinator = AllTemplatesCoordinator(navigationController: navVC)
+//        coordinator.navigationController = navVC
+//
+//        let window = UIWindow(frame: UIScreen.main.bounds)
+//        window.rootViewController = navVC
+//        window.makeKeyAndVisible()
+//        self.window = window
+//
+//        coordinator.startModule()
+//
+//        return true
+//    }
 
     // MARK: UISceneSession Lifecycle
 

@@ -23,16 +23,13 @@
 		579C1BA22632120100CBCCAA /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 579C1BA02632120100CBCCAA /* LaunchScreen.storyboard */; };
 		579C1BB1263212BA00CBCCAA /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 579C1BB0263212BA00CBCCAA /* AppDelegate.swift */; };
 		579C1BB6263213C500CBCCAA /* Coordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 579C1BB5263213C500CBCCAA /* Coordinator.swift */; };
-		579C1BCB2632174900CBCCAA /* AppTabBarModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 579C1BCA2632174900CBCCAA /* AppTabBarModel.swift */; };
-		579C1BD02632177500CBCCAA /* AppTabBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 579C1BCF2632177500CBCCAA /* AppTabBarView.swift */; };
-		579C1BD42632178600CBCCAA /* AppTabBarCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 579C1BD32632178600CBCCAA /* AppTabBarCell.swift */; };
-		579C1BD72632179500CBCCAA /* AppTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 579C1BD62632179500CBCCAA /* AppTabBarController.swift */; };
 		579C1BDB2632200200CBCCAA /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 579C1BDA2632200200CBCCAA /* Extensions.swift */; };
 		579C1BE72632235900CBCCAA /* NewsInfoData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 579C1BE62632235900CBCCAA /* NewsInfoData.swift */; };
 		57A2E2FC26373F3200EFA949 /* CoreDataService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57A2E2FB26373F3200EFA949 /* CoreDataService.swift */; };
 		57A2E2FF2637419C00EFA949 /* FavoriteArticle+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57A2E2FE2637419C00EFA949 /* FavoriteArticle+CoreDataProperties.swift */; };
 		57A2E303263742C000EFA949 /* FavoriteArticle+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57A2E302263742C000EFA949 /* FavoriteArticle+CoreDataClass.swift */; };
 		57A42EDC2635C18400178B84 /* FavoriteNewsFeedCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57A42EDB2635C18400178B84 /* FavoriteNewsFeedCell.swift */; };
+		57D113A8263B5B04001C117E /* CustomTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57D113A7263B5B04001C117E /* CustomTabBarController.swift */; };
 		57E08E962635F228001C7714 /* FavoriteArticle.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 57E08E942635F228001C7714 /* FavoriteArticle.xcdatamodeld */; };
 /* End PBXBuildFile section */
 
@@ -55,16 +52,13 @@
 		579C1BA32632120100CBCCAA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		579C1BB0263212BA00CBCCAA /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		579C1BB5263213C500CBCCAA /* Coordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coordinator.swift; sourceTree = "<group>"; };
-		579C1BCA2632174900CBCCAA /* AppTabBarModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppTabBarModel.swift; sourceTree = "<group>"; };
-		579C1BCF2632177500CBCCAA /* AppTabBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppTabBarView.swift; sourceTree = "<group>"; };
-		579C1BD32632178600CBCCAA /* AppTabBarCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppTabBarCell.swift; sourceTree = "<group>"; };
-		579C1BD62632179500CBCCAA /* AppTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppTabBarController.swift; sourceTree = "<group>"; };
 		579C1BDA2632200200CBCCAA /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		579C1BE62632235900CBCCAA /* NewsInfoData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsInfoData.swift; sourceTree = "<group>"; };
 		57A2E2FB26373F3200EFA949 /* CoreDataService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataService.swift; sourceTree = "<group>"; };
 		57A2E2FE2637419C00EFA949 /* FavoriteArticle+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FavoriteArticle+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		57A2E302263742C000EFA949 /* FavoriteArticle+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FavoriteArticle+CoreDataClass.swift"; sourceTree = "<group>"; };
 		57A42EDB2635C18400178B84 /* FavoriteNewsFeedCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteNewsFeedCell.swift; sourceTree = "<group>"; };
+		57D113A7263B5B04001C117E /* CustomTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTabBarController.swift; sourceTree = "<group>"; };
 		57E08E952635F228001C7714 /* NewsCoreData.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = NewsCoreData.xcdatamodel; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -85,7 +79,7 @@
 				579C1BAC2632127E00CBCCAA /* Feed */,
 				579C1BAE2632129100CBCCAA /* DetailView */,
 				579C1BC9263216EA00CBCCAA /* FavoriteNews */,
-				579C1BBF2632169200CBCCAA /* TabBar */,
+				57D113A6263B5ADA001C117E /* TabBar */,
 			);
 			path = UIKit;
 			sourceTree = "<group>";
@@ -218,41 +212,6 @@
 			path = Service;
 			sourceTree = "<group>";
 		};
-		579C1BBF2632169200CBCCAA /* TabBar */ = {
-			isa = PBXGroup;
-			children = (
-				579C1BC2263216B200CBCCAA /* Model */,
-				579C1BC1263216AE00CBCCAA /* View */,
-				579C1BC02632169D00CBCCAA /* Controller */,
-			);
-			path = TabBar;
-			sourceTree = "<group>";
-		};
-		579C1BC02632169D00CBCCAA /* Controller */ = {
-			isa = PBXGroup;
-			children = (
-				579C1BD62632179500CBCCAA /* AppTabBarController.swift */,
-			);
-			path = Controller;
-			sourceTree = "<group>";
-		};
-		579C1BC1263216AE00CBCCAA /* View */ = {
-			isa = PBXGroup;
-			children = (
-				579C1BCE2632176300CBCCAA /* Cell */,
-				579C1BCF2632177500CBCCAA /* AppTabBarView.swift */,
-			);
-			path = View;
-			sourceTree = "<group>";
-		};
-		579C1BC2263216B200CBCCAA /* Model */ = {
-			isa = PBXGroup;
-			children = (
-				579C1BCA2632174900CBCCAA /* AppTabBarModel.swift */,
-			);
-			name = Model;
-			sourceTree = "<group>";
-		};
 		579C1BC3263216BC00CBCCAA /* Controller */ = {
 			isa = PBXGroup;
 			children = (
@@ -303,20 +262,20 @@
 			path = FavoriteNews;
 			sourceTree = "<group>";
 		};
-		579C1BCE2632176300CBCCAA /* Cell */ = {
-			isa = PBXGroup;
-			children = (
-				579C1BD32632178600CBCCAA /* AppTabBarCell.swift */,
-			);
-			path = Cell;
-			sourceTree = "<group>";
-		};
 		579C1BD926321FDF00CBCCAA /* Helper */ = {
 			isa = PBXGroup;
 			children = (
 				579C1BDA2632200200CBCCAA /* Extensions.swift */,
 			);
 			path = Helper;
+			sourceTree = "<group>";
+		};
+		57D113A6263B5ADA001C117E /* TabBar */ = {
+			isa = PBXGroup;
+			children = (
+				57D113A7263B5B04001C117E /* CustomTabBarController.swift */,
+			);
+			path = TabBar;
 			sourceTree = "<group>";
 		};
 		57E08E932635F1E1001C7714 /* CoreData */ = {
@@ -402,7 +361,6 @@
 				576C07BA26344EEE00CD62E5 /* NewsFeedController.swift in Sources */,
 				5794BCB22634BB9000757C8F /* FavoriteNewsFeedMainView.swift in Sources */,
 				5794BCA92634BB1E00757C8F /* FavoriteNewsController.swift in Sources */,
-				579C1BD02632177500CBCCAA /* AppTabBarView.swift in Sources */,
 				576C07C726346AA600CD62E5 /* NewsNetworkManager.swift in Sources */,
 				579C1BB6263213C500CBCCAA /* Coordinator.swift in Sources */,
 				57A42EDC2635C18400178B84 /* FavoriteNewsFeedCell.swift in Sources */,
@@ -410,19 +368,17 @@
 				57A2E2FC26373F3200EFA949 /* CoreDataService.swift in Sources */,
 				5726EDA926348FA6008930EA /* NewsDetailView.swift in Sources */,
 				579C1BB1263212BA00CBCCAA /* AppDelegate.swift in Sources */,
-				579C1BD42632178600CBCCAA /* AppTabBarCell.swift in Sources */,
+				57D113A8263B5B04001C117E /* CustomTabBarController.swift in Sources */,
 				576C07BD26345CCB00CD62E5 /* MainCoordinator.swift in Sources */,
 				576C07B42634480F00CD62E5 /* NewsFeedMainView.swift in Sources */,
 				5726EDAF26349C71008930EA /* NewsDetailController.swift in Sources */,
 				579C1BDB2632200200CBCCAA /* Extensions.swift in Sources */,
 				579C1BE72632235900CBCCAA /* NewsInfoData.swift in Sources */,
-				579C1BD72632179500CBCCAA /* AppTabBarController.swift in Sources */,
 				579C1B982632120000CBCCAA /* SceneDelegate.swift in Sources */,
 				57E08E962635F228001C7714 /* FavoriteArticle.xcdatamodeld in Sources */,
 				575B8AB9263AF1CD009BAB7C /* AllTemplatesCoordinator.swift in Sources */,
 				576C07B72634482200CD62E5 /* NewsFeedCell.swift in Sources */,
 				575B8ABD263AF29E009BAB7C /* AllTemplatesAssemblyBuilder.swift in Sources */,
-				579C1BCB2632174900CBCCAA /* AppTabBarModel.swift in Sources */,
 				57A2E2FF2637419C00EFA949 /* FavoriteArticle+CoreDataProperties.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

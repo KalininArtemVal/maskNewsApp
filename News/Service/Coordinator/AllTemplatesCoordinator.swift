@@ -30,16 +30,15 @@ final class AllTemplatesCoordinator: AllTemplatesCoordinatorProtocol {
 
     // MARK: - Methods
     func startModule() {
-        var vc: UIViewController & Coordinating = AppTabBarController()
-        vc.coordinator = self
-        
-        navigationController?.setViewControllers([vc], animated: false)
+//        var vc: UIViewController & Coordinating = CustomTabBarController()
+//        vc.coordinator = self
+//        navigationController?.setViewControllers([vc], animated: false)
     }
 }
 
 extension AllTemplatesCoordinator {
     func presentDetailTemplate(templateInfoData: NewsInfoData.Article) {
-        let controller = assemblyBuilder.createDetailViewController(coordinator: self, model: templateInfoData)
+        let controller = assemblyBuilder.createDetailViewController(model: templateInfoData)
         navigationController?.pushViewController(controller, animated: true)
     }
 }
