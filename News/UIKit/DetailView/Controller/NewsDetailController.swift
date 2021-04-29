@@ -10,13 +10,15 @@ import UIKit
 final class NewsDetailController: UIViewController {
     
     //MARK: - Properties
+    private let coordinator: AllTemplatesCoordinatorProtocol
     private let model: NewsInfoData.Article
     private let session = Network.shared.session
     lazy private var mainView = NewsDetailView(subscriber: self)
     
     
     //MARK: - Init
-    init(model: NewsInfoData.Article) {
+    init(coordinator: AllTemplatesCoordinatorProtocol, model: NewsInfoData.Article) {
+        self.coordinator = coordinator
         self.model = model
         super.init(nibName: nil, bundle: nil)
     }

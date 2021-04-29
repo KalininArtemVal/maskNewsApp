@@ -66,8 +66,8 @@ extension FavoriteNewsController: UICollectionViewDelegate, UICollectionViewData
         let newArticle = NewsInfoData.Article(title: article.title,
                                               description: article.descriptionArticle,
                                               urlToImage: article.urlToImage)
-        let vc = NewsDetailController(model: newArticle)
-        present(vc, animated: true)
+//        let vc = NewsDetailController(coordinator: <#AllTemplatesCoordinatorProtocol#>, model: newArticle)
+//        present(vc, animated: true)
     }
     
 }

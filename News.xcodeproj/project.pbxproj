@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		5726EDA926348FA6008930EA /* NewsDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5726EDA826348FA6008930EA /* NewsDetailView.swift */; };
 		5726EDAF26349C71008930EA /* NewsDetailController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5726EDAE26349C71008930EA /* NewsDetailController.swift */; };
+		575B8AB9263AF1CD009BAB7C /* AllTemplatesCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 575B8AB8263AF1CD009BAB7C /* AllTemplatesCoordinator.swift */; };
+		575B8ABD263AF29E009BAB7C /* AllTemplatesAssemblyBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 575B8ABC263AF29E009BAB7C /* AllTemplatesAssemblyBuilder.swift */; };
 		576C07B42634480F00CD62E5 /* NewsFeedMainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 576C07B32634480F00CD62E5 /* NewsFeedMainView.swift */; };
 		576C07B72634482200CD62E5 /* NewsFeedCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 576C07B62634482200CD62E5 /* NewsFeedCell.swift */; };
 		576C07BA26344EEE00CD62E5 /* NewsFeedController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 576C07B926344EEE00CD62E5 /* NewsFeedController.swift */; };
@@ -37,6 +39,8 @@
 /* Begin PBXFileReference section */
 		5726EDA826348FA6008930EA /* NewsDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsDetailView.swift; sourceTree = "<group>"; };
 		5726EDAE26349C71008930EA /* NewsDetailController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsDetailController.swift; sourceTree = "<group>"; };
+		575B8AB8263AF1CD009BAB7C /* AllTemplatesCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllTemplatesCoordinator.swift; sourceTree = "<group>"; };
+		575B8ABC263AF29E009BAB7C /* AllTemplatesAssemblyBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllTemplatesAssemblyBuilder.swift; sourceTree = "<group>"; };
 		576C07B32634480F00CD62E5 /* NewsFeedMainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsFeedMainView.swift; sourceTree = "<group>"; };
 		576C07B62634482200CD62E5 /* NewsFeedCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsFeedCell.swift; sourceTree = "<group>"; };
 		576C07B926344EEE00CD62E5 /* NewsFeedController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsFeedController.swift; sourceTree = "<group>"; };
@@ -84,6 +88,22 @@
 				579C1BBF2632169200CBCCAA /* TabBar */,
 			);
 			path = UIKit;
+			sourceTree = "<group>";
+		};
+		575B8AB7263AF0C6009BAB7C /* Coordinator */ = {
+			isa = PBXGroup;
+			children = (
+				575B8AB8263AF1CD009BAB7C /* AllTemplatesCoordinator.swift */,
+			);
+			path = Coordinator;
+			sourceTree = "<group>";
+		};
+		575B8ABB263AF276009BAB7C /* AssemblyBuilder */ = {
+			isa = PBXGroup;
+			children = (
+				575B8ABC263AF29E009BAB7C /* AllTemplatesAssemblyBuilder.swift */,
+			);
+			path = AssemblyBuilder;
 			sourceTree = "<group>";
 		};
 		576C07B2263447F100CD62E5 /* FeedCell */ = {
@@ -189,6 +209,8 @@
 		579C1BB4263213A100CBCCAA /* Service */ = {
 			isa = PBXGroup;
 			children = (
+				575B8ABB263AF276009BAB7C /* AssemblyBuilder */,
+				575B8AB7263AF0C6009BAB7C /* Coordinator */,
 				57E08E932635F1E1001C7714 /* CoreData */,
 				579C1BB5263213C500CBCCAA /* Coordinator.swift */,
 				576C07BC26345CCB00CD62E5 /* MainCoordinator.swift */,
@@ -397,7 +419,9 @@
 				579C1BD72632179500CBCCAA /* AppTabBarController.swift in Sources */,
 				579C1B982632120000CBCCAA /* SceneDelegate.swift in Sources */,
 				57E08E962635F228001C7714 /* FavoriteArticle.xcdatamodeld in Sources */,
+				575B8AB9263AF1CD009BAB7C /* AllTemplatesCoordinator.swift in Sources */,
 				576C07B72634482200CD62E5 /* NewsFeedCell.swift in Sources */,
+				575B8ABD263AF29E009BAB7C /* AllTemplatesAssemblyBuilder.swift in Sources */,
 				579C1BCB2632174900CBCCAA /* AppTabBarModel.swift in Sources */,
 				57A2E2FF2637419C00EFA949 /* FavoriteArticle+CoreDataProperties.swift in Sources */,
 			);

@@ -32,6 +32,12 @@ final class NewsFeedMainView: UIView {
         return collectionView
     }()
     
+    public let searchController: UISearchController = {
+        $0.obscuresBackgroundDuringPresentation = false
+        $0.searchBar.placeholder = "Поиск"
+        return $0
+    }(UISearchController())
+    
     //MARK: - Methods
     private func setupConstraints() {
         addSubview(viewForCollection)

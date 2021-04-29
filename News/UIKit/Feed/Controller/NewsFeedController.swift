@@ -8,13 +8,22 @@ import UIKit
 
 final class NewsFeedController: UIViewController, Coordinating {
     
+    
     var coordinator: Coordinator?
     
     //MARK: - Properties
     public let mainView = NewsFeedMainView()
+    private var filteredModel = [NewsInfoData.Article]()
     private var model = NewsInfoData.model
     private var currentIndex = 0
     private let session = Network.shared.session
+    
+    private var isSearchBarEmpty: Bool {
+        return mainView.searchController.searchBar.text?.isEmpty ?? true
+    }
+    private var isFiltering: Bool {
+        return mainView.searchController.isActive && !isSearchBarEmpty
+    }
     
     //MARK: - Life cycle
     override func loadView() {
@@ -25,12 +34,28 @@ final class NewsFeedController: UIViewController, Coordinating {
         super.viewDidLoad()
         setupProperties()
         getNews()
+        setupSearchController()
     }
     
     //MARK: - Methods
     private func setupProperties() {
         mainView.viewForCollection.delegate = self
         mainView.viewForCollection.dataSource = self
+    }
+    
+    private func setupSearchController() {
+        mainView.searchController.searchResultsUpdater = self
+        coordinator?.navigationController?.navigationItem.searchController = mainView.searchController
+        definesPresentationContext = true
+    }
+    
+    private func filterContentForSearchText(_ searchText: String, category: NewsInfoData.Article? = nil) {
+        filteredModel = model.filter { (article: NewsInfoData.Article) -> Bool in
+            return (article.title?.lowercased().contains(searchText.lowercased()))!
+        }
+        
+//        view.addSubview(detailView)
+        mainView.viewForCollection.reloadData()
     }
     
     private func getNews() {
@@ -68,8 +93,8 @@ extension NewsFeedController: UICollectionViewDelegate, UICollectionViewDataSour
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         // TODO: - create normal coordinator!
         let article = model[indexPath.row]
-        let vc = NewsDetailController(model: article)
-        present(vc, animated: true)
+//        let vc = NewsDetailController(coordinator: self, model: article)
+//        present(vc, animated: true)
     }
     
 }
@@ -96,4 +121,11 @@ extension NewsFeedController: NewsFeedCellProtocol {
         }
     }
     
+}
+
+extension NewsFeedController: UISearchResultsUpdating {
+    func updateSearchResults(for searchController: UISearchController) {
+        let searchBar = searchController.searchBar
+        filterContentForSearchText(searchBar.text!)
+    }
 }

@@ -13,7 +13,6 @@ final class AppTabBarController: UITabBarController, Coordinating {
     
     // MARK: - Properties
     private let allNews = NewsFeedController()
-    
     private let favoriteNews = FavoriteNewsController()
     
     private let model = AppTabBarModel()
