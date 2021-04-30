@@ -14,7 +14,6 @@ final class NewsDetailController: UIViewController {
     private let session = Network.shared.session
     lazy private var mainView = NewsDetailView(subscriber: self)
     
-    
     //MARK: - Init
     init(model: NewsInfoData.Article) {
         self.model = model

@@ -8,8 +8,7 @@
 import UIKit
 import CoreData
 
-final class FavoriteNewsController: UIViewController, Coordinating {
-    var coordinator: Coordinator?
+final class FavoriteNewsController: UIViewController {
     
     //MARK: - Properties
     private let mainView = FavoriteNewsFeedMainView()
@@ -34,17 +33,18 @@ final class FavoriteNewsController: UIViewController, Coordinating {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupProperties()
-        title = "Favorite"
     }
     
     //MARK: - Methods
     private func setupProperties() {
+        title = "Favorite"
         mainView.viewForCollection.delegate = self
         mainView.viewForCollection.dataSource = self
     }
     
 }
 
+// MARK: - Extensions
 extension FavoriteNewsController: UICollectionViewDelegate, UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -62,8 +62,8 @@ extension FavoriteNewsController: UICollectionViewDelegate, UICollectionViewData
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        // TODO: - create normal coordinator!
         let article = CoreDataService.shared.favoriteArticle[indexPath.row]
+        
         let newArticle = NewsInfoData.Article(title: article.title,
                                               description: article.descriptionArticle,
                                               urlToImage: article.urlToImage)

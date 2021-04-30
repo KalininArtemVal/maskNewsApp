@@ -31,17 +31,18 @@ final class FavoriteNewsFeedCell: UICollectionViewCell {
         return $0
     }(UIImageView())
     
-    private let viewForTitle: UIImageView = {
+    lazy var viewForTitle: UIImageView = {
         $0.clipsToBounds = true
-        $0.layer.cornerRadius = 16
+        $0.layer.cornerRadius = 16 / 375 * screenWidth
         $0.translatesAutoresizingMaskIntoConstraints = false
         return $0
     }(UIImageView())
     
     // --- ImageView
-    private let titleLabel: UILabel = {
+    lazy var titleLabel: UILabel = {
         $0.textColor = .white
         $0.numberOfLines = 2
+        $0.font = .systemFont(ofSize: 15 / 375 * screenWidth)
         $0.textAlignment = .left
         $0.translatesAutoresizingMaskIntoConstraints = false
         return $0

@@ -13,30 +13,31 @@ protocol NewsDetailViewProtocol: class {
 final class NewsDetailView: UIView {
     
     //MARK: - Properties
-    private var dataTask: URLSessionDataTask?
     private let screenHeight = UIScreen.main.bounds.height
     private let screenWidth = UIScreen.main.bounds.width
+    private var dataTask: URLSessionDataTask?
     weak var delegate: NewsDetailViewProtocol?
     
     // --- Labels
-    private let titleLabel: UILabel = {
+    lazy var titleLabel: UILabel = {
         $0.numberOfLines = 0
         $0.textAlignment = .center
-        $0.font = UIFont.systemFont(ofSize: 30)
+        $0.font = UIFont.systemFont(ofSize: 30 / 375 * screenWidth)
         $0.translatesAutoresizingMaskIntoConstraints = false
         return $0
     }(UILabel())
     
     // --- TextView
-    let descriptionLabel: UITextView = {
+    lazy var descriptionLabel: UILabel = {
         $0.layer.masksToBounds = true
-        $0.font = UIFont.systemFont(ofSize: 15)
+        $0.font = UIFont.systemFont(ofSize: 15 / 375 * screenWidth)
         $0.autoresizingMask = .flexibleWidth
         $0.autoresizingMask = .flexibleHeight
-        $0.textContainer.widthTracksTextView = true
+        $0.numberOfLines = 2
+//        $0.textContainer.widthTracksTextView = true
         $0.translatesAutoresizingMaskIntoConstraints = false
         return $0
-    }(UITextView())
+    }(UILabel())
     
     // --- ImageView
     private let titleImage: UIImageView = {
@@ -138,8 +139,8 @@ final class NewsDetailView: UIView {
         
         NSLayoutConstraint.activate([
             descriptionLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 20 / 812 * screenHeight),
-            descriptionLabel.leadingAnchor.constraint(equalTo: scrollView.safeAreaLayoutGuide.leadingAnchor),
-            descriptionLabel.trailingAnchor.constraint(equalTo: scrollView.safeAreaLayoutGuide.trailingAnchor),
+            descriptionLabel.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor),
+            descriptionLabel.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor),
             descriptionLabel.heightAnchor.constraint(equalToConstant: 200 / 812 * screenHeight),
         ])
     }

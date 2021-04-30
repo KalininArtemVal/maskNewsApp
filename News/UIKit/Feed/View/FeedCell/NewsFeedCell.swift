@@ -13,39 +13,45 @@ protocol NewsFeedCellProtocol: class {
 final class NewsFeedCell: UICollectionViewCell {
     
     //MARK: - Properties
+    
+    private let screenHeight = UIScreen.main.bounds.height
+    private let screenWidth = UIScreen.main.bounds.width
     private var dataTask: URLSessionDataTask?
     
     static let identifier = "NewsFeedCell"
     weak var delegate: NewsFeedCellProtocol?
     
-    private let screenHeight = UIScreen.main.bounds.height
-    private let screenWidth = UIScreen.main.bounds.width
-    
     // --- ImageView
     private let titleImage: UIImageView = {
         $0.contentMode = .scaleAspectFill
-        $0.backgroundColor = .cyan
+        $0.backgroundColor = .white
         $0.layer.cornerRadius = 16
         $0.clipsToBounds = true
         $0.translatesAutoresizingMaskIntoConstraints = false
         return $0
     }(UIImageView())
     
-    private let viewForTitle: UIImageView = {
+    lazy var viewForTitle: UIImageView = {
         $0.clipsToBounds = true
-        $0.layer.cornerRadius = 16
+        $0.layer.cornerRadius = 16 / 375 * screenWidth
         $0.translatesAutoresizingMaskIntoConstraints = false
         return $0
     }(UIImageView())
     
-    // --- ImageView
-    private let titleLabel: UILabel = {
+    // --- Label
+    lazy var titleLabel: UILabel = {
         $0.textColor = .white
+        $0.font = .systemFont(ofSize: 15 / 375 * screenWidth)
         $0.numberOfLines = 2
         $0.textAlignment = .left
         $0.translatesAutoresizingMaskIntoConstraints = false
         return $0
     }(UILabel())
+    
+    private let activeIndicator: UIActivityIndicatorView = {
+        $0.translatesAutoresizingMaskIntoConstraints = false
+        return $0
+    }(UIActivityIndicatorView())
     
     // --- Button
     lazy var saveButton: UIButton = {
@@ -59,7 +65,7 @@ final class NewsFeedCell: UICollectionViewCell {
     
     //MARK: - Methods
     public func setupProperties(title: String?, url: URL?, session: URLSession) {
-        
+        activeIndicator.startAnimating()
         titleLabel.text = title
         if let url = url {
             let dataTask = session.dataTask(with: url) { [weak self] (data, _, _) in
@@ -73,6 +79,7 @@ final class NewsFeedCell: UICollectionViewCell {
                 DispatchQueue.main.async { [weak self] in
                     self?.titleImage.image = image
                     self?.titleImage.contentMode = .scaleAspectFill
+                    self?.activeIndicator.stopAnimating()
                 }
             }
             dataTask.resume()
@@ -82,7 +89,13 @@ final class NewsFeedCell: UICollectionViewCell {
         addSubview(titleImage)
         addSubview(viewForTitle)
         addSubview(saveButton)
+        addSubview(activeIndicator)
         viewForTitle.addSubview(titleLabel)
+        
+        NSLayoutConstraint.activate([
+            activeIndicator.centerYAnchor.constraint(equalTo: titleImage.centerYAnchor),
+            activeIndicator.centerXAnchor.constraint(equalTo: titleImage.centerXAnchor),
+        ])
         
         NSLayoutConstraint.activate([
             saveButton.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 10 / 812 * screenHeight),
@@ -102,7 +115,7 @@ final class NewsFeedCell: UICollectionViewCell {
             viewForTitle.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor),
             viewForTitle.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor),
             viewForTitle.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor),
-            viewForTitle.heightAnchor.constraint(equalToConstant: 100)
+            viewForTitle.heightAnchor.constraint(equalToConstant: 100 / 812 * screenHeight)
         ])
         
         NSLayoutConstraint.activate([

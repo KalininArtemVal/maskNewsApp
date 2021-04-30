@@ -6,8 +6,7 @@
 //
 import UIKit
 
-final class NewsFeedController: UIViewController, Coordinating {
-    var coordinator: Coordinator?
+final class NewsFeedController: UIViewController {
     
     //MARK: - Properties
     public let mainView = NewsFeedMainView()
@@ -15,6 +14,12 @@ final class NewsFeedController: UIViewController, Coordinating {
     private var model = NewsInfoData.model
     private var currentIndex = 0
     private let session = Network.shared.session
+    
+    let alertController = UIAlertController(title: "Новость добавленна в Избранные",
+                                                   message: "Чтобы посмотреть перейдите во вкладку Favorite",
+                                                   preferredStyle: .actionSheet)
+    let defaultAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+               
     
     private let searchController = UISearchController(searchResultsController: nil)
     
@@ -34,12 +39,13 @@ final class NewsFeedController: UIViewController, Coordinating {
         super.viewDidLoad()
         setupProperties()
         getNews()
-        title = "Feed"
         setSearchController()
+        
     }
     
     //MARK: - Methods
     private func setupProperties() {
+        title = "Feed"
         mainView.viewForCollection.delegate = self
         mainView.viewForCollection.dataSource = self
     }
@@ -104,7 +110,6 @@ extension NewsFeedController: UICollectionViewDelegate, UICollectionViewDataSour
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        // TODO: - create normal coordinator!
         if isFiltering {
             let article = filteredModel[indexPath.row]
             let vc = NewsDetailController(model: article)
@@ -129,6 +134,9 @@ extension NewsFeedController: UICollectionViewDelegateFlowLayout {
 
 extension NewsFeedController: NewsFeedCellProtocol {
     func tapToSave(cell: NewsFeedCell) {
+        print(#function)
+        alertController.addAction(defaultAction)
+        self.present(alertController, animated: true, completion: nil)
         if let indexPath = mainView.viewForCollection.indexPath(for: cell) {
             for (index, value) in model.enumerated() {
                 if index == indexPath.row {
