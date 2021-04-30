@@ -14,15 +14,12 @@ final class NewsFeedController: UIViewController {
     private var model = NewsInfoData.model
     private var currentIndex = 0
     private let session = Network.shared.session
-    
-    let alertController = UIAlertController(title: "Новость добавленна в Избранные",
-                                                   message: "Чтобы посмотреть перейдите во вкладку Favorite",
-                                                   preferredStyle: .actionSheet)
-    let defaultAction = UIAlertAction(title: "OK", style: .default, handler: nil)
-               
-    
     private let searchController = UISearchController(searchResultsController: nil)
-    
+    private let alertController = UIAlertController(title: "Новость добавленна в Избранные",
+                                                   message: "Чтобы посмотреть, перейдите во вкладку Favorite",
+                                                   preferredStyle: .actionSheet)
+    private let defaultAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+               
     private var isSearchBarEmpty: Bool {
         return searchController.searchBar.text?.isEmpty ?? true
     }
@@ -40,7 +37,6 @@ final class NewsFeedController: UIViewController {
         setupProperties()
         getNews()
         setSearchController()
-        
     }
     
     //MARK: - Methods

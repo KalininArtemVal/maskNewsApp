@@ -75,7 +75,7 @@ final class NewsFeedCell: UICollectionViewCell {
                 let widthSize = Int(UIScreen.main.bounds.width)
                 let heightSize = Int(UIScreen.main.bounds.height / 4)
                 //Resize images
-                let image = UIImage(data: data)?.resizedImage(with: CGSize(width: widthSize, height: heightSize))
+                let image = UIImage(data: data) //?.resizedImage(with: CGSize(width: widthSize, height: heightSize))
                 DispatchQueue.main.async { [weak self] in
                     self?.titleImage.image = image
                     self?.titleImage.contentMode = .scaleAspectFill

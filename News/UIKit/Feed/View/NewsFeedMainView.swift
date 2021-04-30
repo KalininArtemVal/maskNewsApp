@@ -9,16 +9,7 @@ import UIKit
 
 final class NewsFeedMainView: UIView, UISearchBarDelegate {
     
-    //MARK: - Init
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-        setupConstraints()
-    }
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
+    //MARK: - Properties
     // --- CollectionView
     public let viewForCollection : UICollectionView = {
         let layout = UICollectionViewFlowLayout()
@@ -31,6 +22,16 @@ final class NewsFeedMainView: UIView, UISearchBarDelegate {
         collectionView.translatesAutoresizingMaskIntoConstraints = false
         return collectionView
     }()
+    
+    //MARK: - Init
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        setupConstraints()
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     //MARK: - Methods
     private func setupConstraints() {

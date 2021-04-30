@@ -12,7 +12,7 @@ enum NetworkManagerError: Error {
     case badLocalUrl
 }
 
-class Network {
+final class Network {
     
     // MARK: - Properties
     private let key = "1b4e4c9c466e4b95a15dbf2269b71298"
